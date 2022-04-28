@@ -8,22 +8,47 @@
 import UIKit
 
 class AddItemViewController: UIViewController {
-
+    
+    @IBOutlet weak var expDate: UIDatePicker!
+    @IBOutlet weak var itemField: UITextField!
+    @IBOutlet weak var categoryField: UITextField!
+    
+    var itemNames: String?
+    var categoryNames: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         title = "Add Item"
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            title: "Cancel",
+            style: .done,
+            target: self,
+            action: #selector(dismissMe))
         
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @objc func dismissMe() {
+        self.dismiss(animated: true)
     }
-    */
+    
+    
+    @IBAction func expDateSelect(_ sender: Any) {
+        let datestyle = DateFormatter()
+        datestyle.timeZone = TimeZone(abbreviation: "GMT+7")
+        datestyle.locale = NSLocale.current
+        datestyle.dateFormat = "d MMM yyyy"
+        let date = datestyle.string(from: expDate.date)
+        
+        print(date)
+    }
+    
+    @IBAction func addBtn(_ sender: Any) {
+        itemNames = itemField.text
+        categoryNames = categoryField.text
+        performSegue(withIdentifier: "toDash", sender: nil)
+    }
 
+    
 }
