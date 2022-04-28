@@ -16,6 +16,18 @@ class ViewController: UIViewController, UISearchResultsUpdating {
         title = "Dashboard"
         searchBar.searchResultsUpdater = self
         navigationItem.searchController = searchBar
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(addBtn))
+    }
+    
+    @objc func addBtn() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let addItemVC = storyboard.instantiateViewController(identifier: "AddItemID")
+        addItemVC.modalTransitionStyle = .coverVertical
+        present(addItemVC, animated: true, completion: nil)
+        
     }
 
     func updateSearchResults(for searchController: UISearchController) {

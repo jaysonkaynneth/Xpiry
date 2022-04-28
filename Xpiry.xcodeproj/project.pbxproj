@@ -15,6 +15,7 @@
 		961139D728194AB20023D6A6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 961139D628194AB20023D6A6 /* Assets.xcassets */; };
 		961139DA28194AB20023D6A6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 961139D828194AB20023D6A6 /* LaunchScreen.storyboard */; };
 		961139E228199B4F0023D6A6 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961139E128199B4F0023D6A6 /* SearchResultViewController.swift */; };
+		96127EF2281A60150014C324 /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96127EF1281A60150014C324 /* AddItemViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		961139D928194AB20023D6A6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		961139DB28194AB20023D6A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		961139E128199B4F0023D6A6 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
+		96127EF1281A60150014C324 /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				961139CA28194AB10023D6A6 /* AppDelegate.swift */,
 				961139CC28194AB10023D6A6 /* SceneDelegate.swift */,
 				961139CE28194AB10023D6A6 /* ViewController.swift */,
+				96127EF1281A60150014C324 /* AddItemViewController.swift */,
 				961139E128199B4F0023D6A6 /* SearchResultViewController.swift */,
 				961139D028194AB10023D6A6 /* Main.storyboard */,
 				961139D628194AB20023D6A6 /* Assets.xcassets */,
@@ -149,6 +152,7 @@
 				961139E228199B4F0023D6A6 /* SearchResultViewController.swift in Sources */,
 				961139D528194AB10023D6A6 /* Xpiry.xcdatamodeld in Sources */,
 				961139CD28194AB10023D6A6 /* SceneDelegate.swift in Sources */,
+				96127EF2281A60150014C324 /* AddItemViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
