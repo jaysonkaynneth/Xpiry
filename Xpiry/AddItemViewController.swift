@@ -70,7 +70,7 @@ class AddItemViewController: UIViewController {
                 datestyle.dateFormat = "d MMM yyyy"
                 date = datestyle.string(from: Date())
                 items.expDate = date
-            }else{
+            } else {
                 items.expDate = date
             }
 
