@@ -72,16 +72,29 @@ class ViewController: UIViewController, UISearchResultsUpdating, UITableViewDele
        {
            let deleteItem = UIContextualAction(style: .normal, title:  "Delete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
                
-               let deleteAlert = UIAlertController(title: "Are you sure?", message: "This action cannot be undone", preferredStyle: UIAlertController.Style.alert)
-               
-               deleteAlert.addAction(UIAlertAction(title: "Delete", style: UIAlertAction.Style.default, handler: nil))
-               self.present(deleteAlert, animated: true, completion: nil)
+               DispatchQueue.main.async {
+                   self.showDeleteWarning(for: indexPath)
+               }
                
                success(true)
            })
            deleteItem.backgroundColor = .red
            return UISwipeActionsConfiguration(actions: [deleteItem])
        }
+    
+    func showDeleteWarning(for indexPath: IndexPath) {
+        let deleteAlert = UIAlertController(title: "Are you sure?", message: "This action cannot be undone", preferredStyle: UIAlertController.Style.alert)
+
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+            DispatchQueue.main.async {
+                self.data.remove(at: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        }
+        
+        deleteAlert.addAction(deleteAction)
+        present(deleteAlert, animated: true, completion: nil)
+    }
     
     @objc func addBtn() {
         let addItemVC = storyboard?.instantiateViewController(identifier: "AddItemID") as! AddItemViewController

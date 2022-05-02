@@ -57,8 +57,6 @@ class AddItemViewController: UIViewController {
     
     @objc func validator(sender: UITextField) {
 
-        sender.text = sender.text?.trimmingCharacters(in: .whitespaces)
-
         guard
           let item = itemField.text, !item.isEmpty
           else
