@@ -12,7 +12,7 @@ class ViewController: UIViewController, UISearchResultsUpdating, UITableViewDele
 //    weak var delegate:AddMoviesToController?
     
     var data = [Items]()
-    var tempName = ""
+    var date: String?
     let searchBar = UISearchController()
     
     @IBOutlet weak var tableView: UITableView!
@@ -23,7 +23,7 @@ class ViewController: UIViewController, UISearchResultsUpdating, UITableViewDele
         tableView.delegate = self
         tableView.dataSource = self
         
-        title = "Dashboard"
+        title = "Items"
         searchBar.searchResultsUpdater = self
         navigationItem.searchController = searchBar
         let rightBarButtonItem = UIBarButtonItem(
@@ -48,8 +48,22 @@ class ViewController: UIViewController, UISearchResultsUpdating, UITableViewDele
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = (tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as? ItemsTableViewCell)!
+        cell.selectionStyle = .none
         cell.itemName.text = data[indexPath.row].name
         cell.expiryDate.text = data[indexPath.row].expDate
+        
+        let datestyle = DateFormatter()
+        datestyle.timeZone = TimeZone(abbreviation: "GMT+7")
+        datestyle.locale = NSLocale.current
+        datestyle.dateFormat = "d MMM yyyy"
+        date = datestyle.string(from: Date())
+        
+        if data[indexPath.row].expDate == date  {
+            cell.backgroundColor = .init(red: 218/255, green: 85/255, blue: 82/255, alpha: 100)
+        } else {
+            cell.backgroundColor = .none
+        }
+
         return cell
         
     }
@@ -78,7 +92,7 @@ class ViewController: UIViewController, UISearchResultsUpdating, UITableViewDele
                
                success(true)
            })
-           deleteItem.backgroundColor = .red
+           deleteItem.backgroundColor = .init(red: 218/255, green: 85/255, blue: 82/255, alpha: 100)
            return UISwipeActionsConfiguration(actions: [deleteItem])
        }
     
