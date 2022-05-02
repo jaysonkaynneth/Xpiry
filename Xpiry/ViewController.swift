@@ -26,11 +26,16 @@ class ViewController: UIViewController, UISearchResultsUpdating, UITableViewDele
         title = "Dashboard"
         searchBar.searchResultsUpdater = self
         navigationItem.searchController = searchBar
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
+        let rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .add,
             target: self,
             action: #selector(addBtn))
-//        navigationController.navigationBar.tintColor = .init(red: 93/255, green: 162/255, blue: 113/255, alpha: 100)
+        rightBarButtonItem.tintColor = .init(red: 93/255, green: 162/255, blue: 113/255, alpha: 100)
+        
+        navigationItem.rightBarButtonItem = rightBarButtonItem
+        
+        
+        
 
     }
 
@@ -65,26 +70,20 @@ class ViewController: UIViewController, UISearchResultsUpdating, UITableViewDele
     func tableView(_ tableView: UITableView,
                       trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
        {
-
-           let editItem = UIContextualAction(style: .normal, title:  "Edit", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-               let addItemVC = self.storyboard?.instantiateViewController(identifier: "EditItemID") as! EditItemViewController
-               addItemVC.modalPresentationStyle = .popover
-
-               let navigationController = UINavigationController(rootViewController: addItemVC)
+           let deleteItem = UIContextualAction(style: .normal, title:  "Delete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
                
-               navigationController.navigationBar.tintColor = .init(red: 93/255, green: 162/255, blue: 113/255, alpha: 100)
+               let deleteAlert = UIAlertController(title: "Are you sure?", message: "This action cannot be undone", preferredStyle: UIAlertController.Style.alert)
                
-               self.present(navigationController, animated: true)
+               deleteAlert.addAction(UIAlertAction(title: "Delete", style: UIAlertAction.Style.default, handler: nil))
+               self.present(deleteAlert, animated: true, completion: nil)
+               
                success(true)
            })
-           editItem.backgroundColor = .gray
-
-
-           return UISwipeActionsConfiguration(actions: [editItem])
+           deleteItem.backgroundColor = .red
+           return UISwipeActionsConfiguration(actions: [deleteItem])
        }
     
     @objc func addBtn() {
-//      let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let addItemVC = storyboard?.instantiateViewController(identifier: "AddItemID") as! AddItemViewController
         addItemVC.modalPresentationStyle = .popover
 

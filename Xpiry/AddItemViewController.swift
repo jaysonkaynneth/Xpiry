@@ -10,12 +10,10 @@ import UIKit
 struct Items {
     
     var name: String?
-    var category: String?
     var expDate: String?
     
-    init(names: String, categories:String, dates: String) {
+    init(names: String, dates: String) {
         name = names
-        category = categories
         expDate = dates
     }
 }
@@ -23,15 +21,14 @@ struct Items {
 class AddItemViewController: UIViewController {
     
     var date: String?
-    var items = Items(names: "", categories: "", dates: "")
+    var items = Items(names: "", dates: "")
     
     
     @IBOutlet weak var expDate: UIDatePicker!
     @IBOutlet weak var itemField: UITextField!
-    @IBOutlet weak var categoryField: UITextField!
+    @IBOutlet weak var addBtn: UIButton!
     
     var itemNames = ""
-    var categoryNames: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,12 +40,34 @@ class AddItemViewController: UIViewController {
             target: self,
             action: #selector(dismissMe))
         
+        textFieldCheck()
+       
     }
     
     @objc func dismissMe() {
         self.dismiss(animated: true)
     }
     
+    func textFieldCheck() {
+        addBtn.isHidden = true
+        itemField.addTarget(self, action: #selector(validator),
+                                    for: .editingChanged)
+
+       }
+    
+    @objc func validator(sender: UITextField) {
+
+        sender.text = sender.text?.trimmingCharacters(in: .whitespaces)
+
+        guard
+          let item = itemField.text, !item.isEmpty
+          else
+        {
+          self.addBtn.isHidden = true
+          return
+        }
+        addBtn.isHidden = false
+       }
     
     @IBAction func expDateSelect(_ sender: Any) {
         let datestyle = DateFormatter()
@@ -59,10 +78,8 @@ class AddItemViewController: UIViewController {
     }
     
     @IBAction func addBtn(_ sender: Any) {
-        if let name = itemField.text, let category = categoryField.text { //needs work
-         //   data.append(Items(names: name, categories: category, dates: dates))
+        if let name = itemField.text {
             items.name = name
-            items.category = category
             if date == nil {
                 let datestyle = DateFormatter()
                 datestyle.timeZone = TimeZone(abbreviation: "GMT+7")
@@ -80,12 +97,3 @@ class AddItemViewController: UIViewController {
     
 }
 
-//if dates == nil {
-//    let datestyle = DateFormatter()
-//    datestyle.timeZone = TimeZone(abbreviation: "GMT+7")
-//    datestyle.locale = NSLocale.current
-//    datestyle.dateFormat = "d MMM yyyy"
-//    date = datestyle.string(from: Date())
-//    items.expDate = date
-//}else{
-//    items.expDate = dates
