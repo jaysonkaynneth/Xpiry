@@ -9,15 +9,18 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchControllerDelegate {
     
-    var data = [Items]()
+    var data = [Item]()
     var date: String?
-    var stringToDate: Date?
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 //    let searchBar = UISearchController()
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let defaults = UserDefaults.standard
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -34,6 +37,30 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         navigationItem.rightBarButtonItem = rightBarButtonItem
         
+        fetchItem()
+        
+ 
+        
+//        if let savedItemData = defaults.object(forKey: "item") as? Data {
+//            let decoder = JSONDecoder()
+//            if let savedData = try? decoder.decode(Items.self, from: savedItemData) {
+//                print("Saved item: \(savedData)")
+//            }
+//        }
+        
+    }
+    
+    func fetchItem() {
+        do {
+            
+            data = try context.fetch(Item.fetchRequest())
+            DispatchQueue.main.async {
+                            self.tableView.reloadData()
+                        }
+                
+            } catch {
+                
+        }
     }
     
 
@@ -48,15 +75,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cell = (tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as? ItemsTableViewCell)!
         cell.selectionStyle = .none
         cell.itemName.text = data[indexPath.row].name
-        cell.expiryDate.text = data[indexPath.row].expDate
         
         let datestyle = DateFormatter()
         datestyle.timeZone = TimeZone(abbreviation: "GMT+7")
         datestyle.locale = NSLocale.current
         datestyle.dateFormat = "d MMM yyyy"
-        stringToDate = datestyle.date(from: data[indexPath.row].expDate!)
+        let currDate = datestyle.string(from: Date())
+        let stringToDate = datestyle.date(from: data[indexPath.row].expiry_date ?? currDate)
         
-        if Date() >= stringToDate! {
+        cell.expiryDate.text = datestyle.string(from: stringToDate!)
+        
+        if Date() >= stringToDate ?? Date() {
             cell.backgroundColor = .init(red: 218/255, green: 85/255, blue: 82/255, alpha: 100)
         } else {
             cell.backgroundColor = .none
@@ -68,13 +97,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBAction func unwindToMain(_ unwindSegue: UIStoryboardSegue) {
         if let sourceViewController = unwindSegue.source as? AddItemViewController {
-            self.data.append(sourceViewController.items) 
+//            self.data.append(sourceViewController.items) 
             updateView()
         }
     }
     
     func updateView() {
         //print(data)
+        fetchItem()
         tableView.reloadData()
     }
     
@@ -99,6 +129,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
             DispatchQueue.main.async {
+                self.context.delete(self.data[indexPath.row])
+                do {
+                    try self.context.save()
+                        
+                    } catch {
+                        
+                    }
                 self.data.remove(at: indexPath.row)
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
             }

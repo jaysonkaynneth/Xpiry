@@ -7,24 +7,23 @@
 
 import UIKit
 
-struct Items: Codable {
-    
-    var name: String?
-    var expDate: String?
-    
-    init(names: String, dates: String) {
-        name = names
-        expDate = dates
-    }
-}
+//struct Items: Codable {
+//    
+//    var name: String?
+//    var expDate: String?
+//    
+//    init(names: String, dates: String) {
+//        name = names
+//        expDate = dates
+//    }
+//}
 
 class AddItemViewController: UIViewController {
-    
-   
-    
+
     var date: String?
-    var items = Items(names: "", dates: "")
+//    var items = Items(names: "", dates: "")
     let defaults = UserDefaults.standard
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     @IBOutlet weak var expDate: UIDatePicker!
     @IBOutlet weak var itemField: UITextField!
@@ -78,39 +77,48 @@ class AddItemViewController: UIViewController {
     }
     
     @IBAction func addBtn(_ sender: Any) {
-        if let name = itemField.text {
-            items.name = name
-            if date == nil {
-                let datestyle = DateFormatter()
-                datestyle.timeZone = TimeZone(abbreviation: "GMT+7")
-                datestyle.locale = NSLocale.current
-                datestyle.dateFormat = "d MMM yyyy"
-                date = datestyle.string(from: Date())
-                items.expDate = date
-            } else {
-                items.expDate = date
+        let datestyle = DateFormatter()
+        datestyle.timeZone = TimeZone(abbreviation: "GMT+7")
+        datestyle.locale = NSLocale.current
+        datestyle.dateFormat = "d MMM yyyy"
+        let addItem = Item(context: self.context)
+        addItem.name = itemField.text
+        addItem.expiry_date = date
+        
+        do {
+                try context.save()
+                
+            } catch {
+                
             }
-            saveData()
-            loadData()
-        }
+        
+//        if let name = itemField.text {
+//            items.name = name
+//            if date == nil {
+//                let datestyle = DateFormatter()
+//                datestyle.timeZone = TimeZone(abbreviation: "GMT+7")
+//                datestyle.locale = NSLocale.current
+//                datestyle.dateFormat = "d MMM yyyy"
+//                date = datestyle.string(from: Date())
+//                items.expDate = date
+//            } else {
+//                items.expDate = date
+//            }
+//        }
     }
     
-    func saveData() {
-        let encoder = JSONEncoder()
-        if let encodededItem = try? encoder.encode(items) {
-            defaults.set(encodededItem, forKey: "item")
-        }
-
-    }
     
-    func loadData() {
-        if let savedItemData = defaults.object(forKey: "item") as? Data {
-            let decoder = JSONDecoder()
-            if let savedData = try? decoder.decode(Items.self, from: savedItemData) {
-                print("Saved item: \(savedData)")
-            }
-        }
-    }
+    
+//    func saveData() {
+//        let encoder = JSONEncoder()
+//        if let encodededItem = try? encoder.encode(items) {
+//            defaults.set(encodededItem, forKey: "item")
+//        }
+//    }
+//    
+//    func loadData() {
+//
+//    }
     
 }
 
