@@ -146,9 +146,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         })
         
 
-        
-        deleteAlert.addAction(deleteAction)
         deleteAlert.addAction(cancelAction)
+        deleteAlert.addAction(deleteAction)
+
         
         present(deleteAlert, animated: true, completion: nil)
     }
