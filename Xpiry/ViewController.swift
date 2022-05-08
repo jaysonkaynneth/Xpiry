@@ -156,11 +156,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         present(navigationController, animated: true)
     }
 
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text
-        else {
-            return
-        }
+//    func updateSearchResults(for searchController: UISearchController) {
+//        guard let text = searchController.searchBar.text
+//        else {
+//            return
+//        }
 //        let searchResult = searchController.searchResultsController as? SearchResultViewController
         
         print(text)
