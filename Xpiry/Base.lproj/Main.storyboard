@@ -72,21 +72,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Item Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lIZ-BL-WOg">
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Item Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lIZ-BL-WOg">
                                 <rect key="frame" x="16" y="101" width="358" height="34"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="358" id="a9Y-2c-aBv"/>
-                                    <constraint firstAttribute="height" constant="34" id="vrO-p9-y9d"/>
-                                </constraints>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aqy-DY-cgz">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aqy-DY-cgz">
                                 <rect key="frame" x="73.666666666666686" y="695" width="243" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="243" id="QNh-hb-Pnx"/>
-                                    <constraint firstAttribute="height" constant="50" id="WQO-3Q-uFT"/>
-                                </constraints>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Add Item">
                                     <color key="baseBackgroundColor" red="0.36470588235294116" green="0.63529411764705879" blue="0.44313725490196076" alpha="1" colorSpace="calibratedRGB"/>
@@ -96,23 +90,16 @@
                                     <segue destination="jIl-BH-uYp" kind="unwind" identifier="toDash" unwindAction="unwindToMain:" id="NE8-vW-oei"/>
                                 </connections>
                             </button>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="efV-Od-9Bo">
-                                <rect key="frame" x="245" y="160" width="129" height="31"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="129" id="S6G-If-8qJ"/>
-                                    <constraint firstAttribute="width" constant="129" id="ULT-fx-95R"/>
-                                    <constraint firstAttribute="height" constant="31" id="rUs-go-jt7"/>
-                                </constraints>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="efV-Od-9Bo">
+                                <rect key="frame" x="247" y="160" width="127" height="31"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="expDateSelect:" destination="EZR-bn-eGw" eventType="valueChanged" id="vSE-HY-67k"/>
                                 </connections>
                             </datePicker>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expiration Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XA0-Xf-Vp0">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Expiration Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XA0-Xf-Vp0">
                                 <rect key="frame" x="16" y="166" width="122" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="122" id="4yC-KU-3UA"/>
-                                    <constraint firstAttribute="height" constant="21" id="m9f-Ge-mFf"/>
-                                </constraints>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -120,19 +107,6 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="tLk-VX-W8g"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="tLk-VX-W8g" firstAttribute="trailing" secondItem="efV-Od-9Bo" secondAttribute="trailing" constant="16" id="6hr-CO-lBd"/>
-                            <constraint firstItem="lIZ-BL-WOg" firstAttribute="top" secondItem="tLk-VX-W8g" secondAttribute="top" constant="57" id="83X-5n-jVk"/>
-                            <constraint firstItem="XA0-Xf-Vp0" firstAttribute="top" secondItem="lIZ-BL-WOg" secondAttribute="bottom" constant="31" id="EPu-gV-DhY"/>
-                            <constraint firstItem="efV-Od-9Bo" firstAttribute="leading" secondItem="XA0-Xf-Vp0" secondAttribute="trailing" constant="107" id="H0w-XI-fRq"/>
-                            <constraint firstItem="aqy-DY-cgz" firstAttribute="centerX" secondItem="0V5-fs-D1y" secondAttribute="centerX" id="Qqb-ID-h2W"/>
-                            <constraint firstItem="lIZ-BL-WOg" firstAttribute="centerX" secondItem="0V5-fs-D1y" secondAttribute="centerX" id="caf-bv-i0d"/>
-                            <constraint firstItem="efV-Od-9Bo" firstAttribute="top" secondItem="lIZ-BL-WOg" secondAttribute="bottom" constant="25" id="cvf-IN-nSm"/>
-                            <constraint firstItem="aqy-DY-cgz" firstAttribute="top" secondItem="efV-Od-9Bo" secondAttribute="bottom" constant="504" id="iA2-d2-fl7"/>
-                            <constraint firstItem="XA0-Xf-Vp0" firstAttribute="leading" secondItem="tLk-VX-W8g" secondAttribute="leading" constant="16" id="j6y-va-r9I"/>
-                            <constraint firstItem="efV-Od-9Bo" firstAttribute="top" secondItem="lIZ-BL-WOg" secondAttribute="bottom" constant="25" id="jIb-4G-NBQ"/>
-                            <constraint firstItem="tLk-VX-W8g" firstAttribute="bottom" secondItem="aqy-DY-cgz" secondAttribute="bottom" constant="65" id="khT-ZY-rhE"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="addBtn" destination="aqy-DY-cgz" id="pr4-3k-a0S"/>
