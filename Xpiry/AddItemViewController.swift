@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Items {
+struct Items: Codable {
     
     var name: String?
     var expDate: String?
@@ -20,9 +20,11 @@ struct Items {
 
 class AddItemViewController: UIViewController {
     
+   
+    
     var date: String?
     var items = Items(names: "", dates: "")
-    
+    let defaults = UserDefaults.standard
     
     @IBOutlet weak var expDate: UIDatePicker!
     @IBOutlet weak var itemField: UITextField!
@@ -88,10 +90,28 @@ class AddItemViewController: UIViewController {
             } else {
                 items.expDate = date
             }
-
+            saveData()
+            loadData()
         }
- 
+    }
+    
+    func saveData() {
+        let encoder = JSONEncoder()
+        if let encodededItem = try? encoder.encode(items) {
+            defaults.set(encodededItem, forKey: "item")
+        }
+
+    }
+    
+    func loadData() {
+        if let savedItemData = defaults.object(forKey: "item") as? Data {
+            let decoder = JSONDecoder()
+            if let savedData = try? decoder.decode(Items.self, from: savedItemData) {
+                print("Saved item: \(savedData)")
+            }
+        }
     }
     
 }
+
 

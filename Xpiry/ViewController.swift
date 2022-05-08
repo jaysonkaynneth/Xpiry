@@ -7,13 +7,12 @@
 
 import UIKit
 
-class ViewController: UIViewController, UISearchResultsUpdating, UITableViewDelegate, UITableViewDataSource {
-    
-//    weak var delegate:AddMoviesToController?
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchControllerDelegate {
     
     var data = [Items]()
     var date: String?
-    let searchBar = UISearchController()
+    var stringToDate: Date?
+//    let searchBar = UISearchController()
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -22,10 +21,11 @@ class ViewController: UIViewController, UISearchResultsUpdating, UITableViewDele
         
         tableView.delegate = self
         tableView.dataSource = self
+//        searchBar.delegate = self
         
         title = "Items"
-        searchBar.searchResultsUpdater = self
-        navigationItem.searchController = searchBar
+//        searchBar.searchResultsUpdater = self
+//        navigationItem.searchController = searchBar
         let rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .add,
             target: self,
@@ -34,10 +34,8 @@ class ViewController: UIViewController, UISearchResultsUpdating, UITableViewDele
         
         navigationItem.rightBarButtonItem = rightBarButtonItem
         
-        
-        
-
     }
+    
 
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -56,9 +54,9 @@ class ViewController: UIViewController, UISearchResultsUpdating, UITableViewDele
         datestyle.timeZone = TimeZone(abbreviation: "GMT+7")
         datestyle.locale = NSLocale.current
         datestyle.dateFormat = "d MMM yyyy"
-        date = datestyle.string(from: Date())
+        stringToDate = datestyle.date(from: data[indexPath.row].expDate!)
         
-        if data[indexPath.row].expDate == date  {
+        if Date() >= stringToDate! {
             cell.backgroundColor = .init(red: 218/255, green: 85/255, blue: 82/255, alpha: 100)
         } else {
             cell.backgroundColor = .none
@@ -76,7 +74,7 @@ class ViewController: UIViewController, UISearchResultsUpdating, UITableViewDele
     }
     
     func updateView() {
-        print(data)
+        //print(data)
         tableView.reloadData()
     }
     
