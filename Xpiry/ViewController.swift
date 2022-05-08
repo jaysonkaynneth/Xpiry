@@ -163,9 +163,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //        }
 //        let searchResult = searchController.searchResultsController as? SearchResultViewController
         
-        print(text)
+//        print(text)
         
-    }
+//    }
     
 }
 
